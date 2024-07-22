@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Visitor Tracking</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header>
+        <div class="logo">
+            <img src="logo.jfif" alt="Visitor Tracking Logo">
+        </div>
+        <h1>Visitor Tracking System</h1>
+        <nav>
+            <button id="fillFormButton" class="dynamic-button">Fill the Form</button>
+        </nav>
+    </header>
+    <main>
+        <section class="info-section">
+            <h2 style="color: black">Welcome to Our Park</h2>
+            <div class="slideshow-container">
+                <div class="mySlides fade">
+                    <img src="parki.jpg" alt="Park Image 1">
+                </div>
+                <div class="mySlides fade">
+                    <img src="pk.jpg" alt="Park Image 2">
+                </div>
+                <div class="mySlides fade">
+                    <img src="p.jpg" alt="Park Image 3">
+                </div>
+                <a class="prev" onclick="plusSlides(-1)">&#10094;</a>
+                <a class="next" onclick="plusSlides(1)">&#10095;</a>
+            </div>
+        </section>
+        <section class="rides-section">
+            <h2 style="color: black;">Our Rides</h2>
+            <div class="rides-container">
+                <div class="ride-card">
+                    <img src="roll.jpg" alt="Roller Coaster">
+                    <h3>Roller Coaster</h3>
+                    <p>Experience the thrill of high-speed twists and turns on our iconic roller coaster.</p>
+                </div>
+                <div class="ride-card">
+                    <img src="wheel.jpg" alt="Ferris Wheel">
+                    <h3>Ferris Wheel</h3>
+                    <p>Enjoy a panoramic view of the park from our giant Ferris wheel.</p>
+                </div>
+                <div class="ride-card">
+                    <img src="slide.jpg" alt="Water Slide">
+                    <h3>Water Slide</h3>
+                    <p>Cool off with a splash on our exhilarating water slide.</p>
+                </div>
+                <div class="ride-card">
+                    <img src="house.jpg" alt="Haunted House">
+                    <h3>Haunted House</h3>
+                    <p>Brave the spooky thrills of our haunted house attraction.</p>
+                </div>
+            </div>
+        </section>
+        <section class="map-timetable-section">
+            <div class="map">
+                <h2>Park Map</h2>
+                <img src="mp.jfif" alt="Park Map">
+            </div>
+            <div class="timetable">
+                <h2>Timetable</h2>
+                <ul>
+                    <li>10:00 AM - Opening</li>
+                    <li>12:00 PM - Lunch Break</li>
+                    <li>03:00 PM - Entertainment Show</li>
+                    <li>06:00 PM - Closing</li>
+                </ul>
+            </div>
+        </section>
+    </main>
+    <footer>
+        <a href="https://www.google.com">About</a>
+        <a href="https://www.facebook.com">Socials</a>
+        <a href="https://www.linkedin.com">Contact Us</a>
+        <p>&copy; 2024 Visitor Tracking System. All rights reserved.</p>
+    </footer>
+
+    <!-- Form Section -->
+    <div class="overlay" id="formOverlay"></div>
+    <div class="form-section" id="formSection">
+        <button class="close-button" id="closeFormButton">&times;</button>
+        <h2>Visitor Form</h2>
+        <form id="visitorForm">
+            <div class="form-group">
+                <label for="name">Name:</label>
+                <input type="text" id="name" name="name" required>
+            </div>
+            <div class="form-group">
+                <label for="email">Email:</label>
+                <input type="email" id="email" name="email" required>
+            </div>
+            <div class="form-group">
+                <label for="phone">Phone:</label>
+                <input type="tel" id="phone" name="phone" required>
+            </div>
+            <div class="form-group">
+                <label for="visitDate">Date of Visit:</label>
+                <input type="date" id="visitDate" name="visitDate" required>
+            </div>
+            <button type="submit">Submit</button>
+        </form>
+    </div>
+
+    <script>
+        // Slideshow JavaScript
+        let slideIndex = 0;
+        showSlides();
+
+        function showSlides() {
+            let slides = document.getElementsByClassName("mySlides");
+            for (let i = 0; i < slides.length; i++) {
+                slides[i].style.display = "none";
+            }
+            slideIndex++;
+            if (slideIndex > slides.length) { slideIndex = 1 }
+            slides[slideIndex - 1].style.display = "block";
+            setTimeout(showSlides, 2000); // Change image every 2 seconds
+        }
+
+        function plusSlides(n) {
+            let slides = document.getElementsByClassName("mySlides");
+            slideIndex += n;
+            if (slideIndex > slides.length) { slideIndex = 1 }
+            if (slideIndex < 1) { slideIndex = slides.length }
+            for (let i = 0; i < slides.length; i++) {
+                slides[i].style.display = "none";
+            }
+            slides[slideIndex - 1].style.display = "block";
+        }
+
+        // Form Show/Hide JavaScript
+        const fillFormButton = document.getElementById('fillFormButton');
+        const closeFormButton = document.getElementById('closeFormButton');
+        const formSection = document.getElementById('formSection');
+        const formOverlay = document.getElementById('formOverlay');
+
+        fillFormButton.addEventListener('click', () => {
+            formSection.classList.add('active');
+            formOverlay.classList.add('active');
+        });
+
+        closeFormButton.addEventListener('click', () => {
+            formSection.classList.remove('active');
+            formOverlay.classList.remove('active');
+        });
+
+        formOverlay.addEventListener('click', () => {
+            formSection.classList.remove('active');
+            formOverlay.classList.remove('active');
+        });
+    </script>
+</body>
+</html>
