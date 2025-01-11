@@ -1,0 +1,381 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Live Map</title>
+    <link rel="stylesheet" href="styles.css">
+    <!-- Include Leaflet CSS -->
+   <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" />
+   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+   <style>
+    .info-box {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 30px;
+        margin-top: 30px;
+        justify-content: center;
+    }
+
+    #rides-list, #events-list {
+        background-color: #fff;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        padding: 20px;
+        border-radius: 10px;
+        width: 45%;
+        transition: transform 0.3s ease;
+    }
+
+    #rides-list h2, #events-list h2 {
+        color: #2c3e50;
+        font-size: 24px;
+        margin-bottom: 15px;
+        text-align: center;
+        font-family: 'Arial', sans-serif;
+    }
+
+    .ride-item, .event-item {
+        background-color: #ecf0f1;
+        margin-bottom: 20px;
+        padding: 15px;
+        border-radius: 8px;
+        box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+        transition: transform 0.3s ease, background-color 0.3s ease;
+    }
+
+    .ride-item h3, .event-item h3 {
+        font-size: 20px;
+        color: #34495e;
+        margin-bottom: 10px;
+        font-weight: bold;
+    }
+
+    .ride-item p, .event-item p {
+        font-size: 16px;
+        line-height: 1.5;
+        color: #7f8c8d;
+    }
+
+    .ride-item:hover, .event-item:hover {
+        background-color: #bdc3c7;
+        transform: translateY(-5px);
+    }
+
+    /* Hover effects */
+    #rides-list:hover, #events-list:hover {
+        transform: translateY(-10px);
+    }
+
+    .ride-item:hover h3, .event-item:hover h3 {
+        color: #e74c3c;
+    }
+
+    .ride-item:hover p, .event-item:hover p {
+        color: #2c3e50;
+    }
+    
+    /* Smooth hover transition */
+    .ride-item, .event-item {
+        transition: transform 0.3s ease, background-color 0.3s ease;
+    }
+
+    .ride-item:hover, .event-item:hover {
+        transform: scale(1.05);
+    }
+
+    /* Responsive for smaller screens */
+    @media (max-width: 768px) {
+        #rides-list, #events-list {
+            width: 100%;
+        }
+    }
+</style>
+</head>
+
+<body>
+    <header>
+        <div class="logo">
+            <img src="logo.jfif" alt="Visitor Tracking Logo">
+        </div>
+        
+        
+            <div class="header-container">
+                <div class="logo"><span>Visitor</span> Tracker</div>
+                <nav>
+                    <a href="index.html">Home</a>
+                    <a href="#">About</a>
+                    <a href="#">Services</a>
+                    <a href="#">Gallery</a>
+                    <a href="#">Contact</a>
+                    <a href="#" class="header-btn">Book Now</a>
+                </nav>
+            </div>
+        
+        <nav>
+            <button id="fillFormButton" class="dynamic-button">Fill the Form</button>
+        </nav>
+    </header>
+<div style="padding: 50px;"></div>
+    <div class="map">
+        <h2>Live Park Map</h2>
+        <!-- Map container -->
+        <div id="map"></div>
+    </div>
+    
+
+    <!-- Information Box for Ride and Event Details -->
+    <div class="info-box">
+        <!-- Ride Info -->
+        <div id="rides-list">
+            <h2>Ride Information</h2>
+            <div class="ride-item">
+                <h3>Roller Coaster</h3>
+                <p><strong>Description:</strong> Experience high-speed thrills with loops and drops!</p>
+                <p><strong>Current Traffic:</strong> High</p>
+                <p><strong>Wait Time:</strong> 15 minutes</p>
+                <p><strong>Capacity:</strong> 100 people/hour</p>
+                <p><strong>Status:</strong> Operating</p>
+            </div>
+            <div class="ride-item">
+                <h3>Ferris Wheel</h3>
+                <p><strong>Description:</strong> Enjoy a scenic view of the park from above.</p>
+                <p><strong>Current Traffic:</strong> Moderate</p>
+                <p><strong>Wait Time:</strong> 5 minutes</p>
+                <p><strong>Capacity:</strong> 80 people/hour</p>
+                <p><strong>Status:</strong> Operating</p>
+            </div>
+            <div class="ride-item">
+                <h3>Bumper Cars</h3>
+                <p><strong>Description:</strong> Crash into your friends in a fun-filled bumper car ride.</p>
+                <p><strong>Current Traffic:</strong> Low</p>
+                <p><strong>Wait Time:</strong> 2 minutes</p>
+                <p><strong>Capacity:</strong> 50 people/hour</p>
+                <p><strong>Status:</strong> Under Maintenance</p>
+            </div>
+            <div class="ride-item">
+                <h3>Haunted House</h3>
+                <p><strong>Description:</strong> Dare to enter the haunted mansion at your own risk.</p>
+                <p><strong>Current Traffic:</strong> Low</p>
+                <p><strong>Wait Time:</strong> No Wait</p>
+                <p><strong>Capacity:</strong> 30 people/hour</p>
+                <p><strong>Status:</strong> Operating</p>
+            </div>
+        </div>
+
+        <!-- Event Info -->
+        <div id="events-list">
+            <h2>Upcoming Events</h2>
+            <div class="event-item">
+                <h3>Live Music Show</h3>
+                <p><strong>Description:</strong> Join us for a live music performance near the main square.</p>
+                <p><strong>Time:</strong> 2:00 PM</p>
+                <p><strong>Location:</strong> Main Square</p>
+                <p><strong>Status:</strong> Ongoing</p>
+            </div>
+            <div class="event-item">
+                <h3>Magic Show</h3>
+                <p><strong>Description:</strong> Watch as our magicians perform incredible tricks and illusions.</p>
+                <p><strong>Time:</strong> 4:00 PM</p>
+                <p><strong>Location:</strong> Arena Stage</p>
+                <p><strong>Status:</strong> Upcoming</p>
+            </div>
+            <div class="event-item">
+                <h3>Fireworks Display</h3>
+                <p><strong>Description:</strong> End the day with a spectacular fireworks show.</p>
+                <p><strong>Time:</strong> 8:00 PM</p>
+                <p><strong>Location:</strong> Skyline Park</p>
+                <p><strong>Status:</strong> Upcoming</p>
+            </div>
+        </div>
+    </div>
+    <div style="padding: 30px;"></div>
+    <!-- Upcoming Events Section -->
+    
+    <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
+    <script>
+        // Initialize the map and set default center/zoom
+        var map = L.map('map').setView([28.7041, 77.1025], 14);  // Default location (New Delhi, India)
+    
+        // Add OpenStreetMap Tile Layer to the map
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+        }).addTo(map);
+    
+        // Function to add a "You Are Here" marker based on geolocation
+        function addMarker(lat, lon) {
+            var marker = L.marker([lat, lon]).addTo(map);
+            marker.bindPopup("<b>You Are Here</b>").openPopup();
+        }
+    
+        // Get user's geolocation and place marker
+        if (navigator.geolocation) {
+            navigator.geolocation.getCurrentPosition(function(position) {
+                var userLat = position.coords.latitude;
+                var userLon = position.coords.longitude;
+                
+                // Center map to user's location
+                map.setView([userLat, userLon], 14);
+    
+                // Add the "You Are Here" marker to the map
+                addMarker(userLat, userLon);
+            }, function() {
+                alert("Geolocation service failed. Using default location.");
+                // In case geolocation fails, set map to default location
+                addMarker(28.7041, 77.1025);  // Default to New Delhi
+            });
+        } else {
+            alert("Geolocation is not supported by this browser.");
+            addMarker(28.7041, 77.1025);  // Default to New Delhi
+        }
+       
+    </script>
+    
+ <!-- Form Section -->
+ <div id="formOverlay" class="form-section">
+    <div class="form-container">
+        <button id="closeFormButton" class="close-button">&times;</button>
+        <h2>Visitor Form</h2>
+        <form id="visitorForm">
+            <div class="form-group">
+                <label for="name">Name:</label>
+                <input type="text" id="name" name="name" required>
+            </div>
+            <div class="form-group">
+                <label for="age">Age:</label>
+                <input type="number" id="age" name="age" required>
+            </div>
+            <div class="form-group">
+                <label for="visitType">Visit Type:</label>
+                <div>
+                    <input type="radio" id="family" name="visitType" value="family" required>
+                    <label for="family">With Family</label>
+                </div>
+                <div>
+                    <input type="radio" id="single" name="visitType" value="single" required>
+                    <label for="single">Single</label>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="visitDate">Date of Visit:</label>
+                <input type="date" id="visitDate" name="visitDate" required>
+            </div>
+            <div class="form-group">
+                <button type="submit">Submit</button>
+            </div>
+        </form>
+    </div>
+</div>
+<script>
+    // Form Show/Hide JavaScript
+    const fillFormButton = document.getElementById('fillFormButton');
+    const closeFormButton = document.getElementById('closeFormButton');
+    const formOverlay = document.getElementById('formOverlay');
+
+    fillFormButton.addEventListener('click', () => {
+        formOverlay.classList.add('active');
+    });
+
+    closeFormButton.addEventListener('click', () => {
+        formOverlay.classList.remove('active');
+    });
+
+    formOverlay.addEventListener('click', (e) => {
+        if (e.target === formOverlay) {
+            formOverlay.classList.remove('active');
+        }
+    });
+
+   // Handle form submission
+   document.getElementById('visitorForm').addEventListener('submit', function(e) {
+e.preventDefault(); // Prevent default form submission
+
+// Get latitude and longitude from geolocation
+if (navigator.geolocation) {
+    navigator.geolocation.getCurrentPosition(function(position) {
+        const lat = position.coords.latitude;
+        const lon = position.coords.longitude;
+
+        // Get the form element correctly
+        const formElement = document.getElementById('visitorForm');
+
+        // Create FormData from the form element
+        const formData = new FormData(formElement);
+        formData.append('latitude', lat);
+        formData.append('longitude', lon);
+
+        // Submit the data using fetch
+        fetch('store_location.php', {
+            method: 'POST',
+            body: formData
+        })
+        .then(response => response.text())
+        .then(data => {
+            alert(data);
+        })
+        .catch(error => {
+            console.error('Error:', error);
+        });
+    }, function(error) {
+        alert("Unable to retrieve location: " + error.message);
+    });
+} else {
+    alert("Geolocation is not supported by this browser.");
+}
+});
+
+       
+</script>
+<!--Start of Tawk.to Script-->
+<script type="text/javascript">
+var Tawk_API=Tawk_API||{}, Tawk_LoadStart=new Date();
+(function(){
+var s1=document.createElement("script"),s0=document.getElementsByTagName("script")[0];
+s1.async=true;
+s1.src='https://embed.tawk.to/6780a394af5bfec1dbe98d99/1ih77tv68';
+s1.charset='UTF-8';
+s1.setAttribute('crossorigin','*');
+s0.parentNode.insertBefore(s1,s0);
+})();
+</script>
+<!--End of Tawk.to Script-->
+
+<footer>
+    <div class="footer-container">
+        <div>
+            <div class="footer-logo"><span>Visitor</span> Tracker</div>
+            <p>Effortlessly track and manage visitor locations with our advanced system. Designed for efficiency and reliability.</p>
+        </div>
+        <div class="footer-links">
+            <h4>Quick Links</h4>
+            <ul>
+                <li><a href="#">Home</a></li>
+                <li><a href="admin.php">Admin Dashboard</a></li>
+                <li><a href="#">Services</a></li>
+                <li><a href="#">Gallery</a></li>
+                <li><a href="#">Contact Us</a></li>
+            </ul>
+        </div>
+        <div class="footer-links">
+            <h4>Contact Us</h4>
+            <ul>
+                <li>Email: <a href="mailto:support@visitortracker.com">support@visitortracker.com</a></li>
+                <li>Phone: +123 456 7890</li>
+                <li>Address: 123 Visitor St, City, Country</li>
+            </ul>
+        </div>
+        <div>
+            <h4>Follow Us</h4>
+            <div class="footer-social">
+                <a href="#"><i class="fab fa-facebook-f"></i></a>
+                <a href="#"><i class="fab fa-twitter"></i></a>
+                <a href="#"><i class="fab fa-instagram"></i></a>
+                <a href="#"><i class="fab fa-linkedin-in"></i></a>
+            </div>
+        </div>
+    </div>
+    <div class="footer-bottom">
+        &copy; 2025 Visitor Tracking System. All rights reserved. <a href="#">Privacy Policy</a> | <a href="#">Terms of Service</a>
+    </div>
+</footer>
+</body>
+</html>

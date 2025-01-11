@@ -5,30 +5,198 @@ body, h1, h2, h3, p, ul, li, button, input, textarea {
     box-sizing: border-box;
 }
 
+
+        body {
+            margin: 20px;
+            padding: 20px;
+        }
+
+        #map {
+            width: 100%;
+            height: 400px;
+        }
+
+        .rides-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+
+        .ride-card {
+            flex: 1 1 200px;
+            border: 1px solid #ccc;
+            border-radius: 10px;
+            padding: 10px;
+            text-align: center;
+            background: #f9f9f9;
+        }
+
+        .ride-card img {
+            width: 100%;
+            height: auto;
+            border-radius: 8px;
+        }
+
+        .slideshow-container {
+            position: relative;
+            max-width: 100%;
+            margin: auto;
+        }
+
+        .mySlides {
+            display: none;
+        }
+
+        .fade {
+            animation: fade 1.5s;
+        }
+
+        @keyframes fade {
+            from {
+                opacity: 0.4;
+            }
+
+            to {
+                opacity: 1;
+            }
+        }
+
+        .prev,
+        .next {
+            cursor: pointer;
+            position: absolute;
+            top: 50%;
+            width: auto;
+            padding: 16px;
+            color: white;
+            font-weight: bold;
+            font-size: 18px;
+            transition: 0.6s ease;
+            user-select: none;
+        }
+
+        .prev {
+            left: 0;
+        }
+
+        .next {
+            right: 0;
+        }
+
+        .prev:hover,
+        .next:hover {
+            background-color: rgba(0, 0, 0, 0.8);
+        }
+
+        .form-section {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .form-section.active {
+            display: flex;
+        }
+
+        .form-container {
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            width: 300px;
+        }
+
+        .form-container .close-button {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background: none;
+            border: none;
+            font-size: 18px;
+            cursor: pointer;
+        }
+
+        .timetable ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .timetable li {
+            margin: 10px 0;
+        }
+   
 body {
     font-family: Arial, sans-serif;
     margin: 0;
     padding: 0;
     overflow-x: hidden;
+    background-color: aliceblue;
 }
 
+
 header {
-    background: #333;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 98%;
+    z-index: 1000;
+    background: rgba(0, 0, 0, 0.7); /* Tinted black */
     color: white;
-    padding: 1em 2em;
+    padding: 10px 20px; /* Reduces padding for a less broad header */
     display: flex;
-    justify-content: space-between;
-    align-items: center;
-    position: relative;
-    z-index: 10;
+    align-items: flex-start; /* Vertically centers the content */
+    justify-content: space-between; /* Space between logo, title, and nav */
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.3);
+    backdrop-filter: blur(5px);
 }
+
+.logo img {
+    height: 40px; /* Adjusts logo size */
+    width: auto;
+}
+
+header h1 {
+    font-size: 1.5em; /* Slightly smaller title */
+    margin: 0;
+    white-space: nowrap; /* Prevents title from wrapping to the next line */
+}
+
+nav {
+    display: flex; /* Aligns buttons horizontally */
+    gap: 15px; /* Adds space between buttons */
+}
+
+nav button {
+    background-color: rgba(255, 255, 255, 0.2); /* Transparent button */
+    color: white;
+    border: 1px solid rgba(255, 255, 255, 0.5);
+    padding: 8px 12px; /* Smaller padding for compact look */
+    font-size: 0.9em;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+nav button:hover {
+    background-color: rgba(255, 255, 255, 0.4);
+}
+
 
 .logo img {
     height: 50px;
 }
-
+.logo :hover {
+    transform: scale(1.1);
+}
 h1 {
     margin: 0;
+    color: black;
 }
 
 nav {
@@ -37,7 +205,7 @@ nav {
 }
 
 .dynamic-button {
-    background: #f4a261;
+    background: #65b3b0;
     color: white;
     border: none;
     padding: 0.5em 1em;
@@ -50,7 +218,170 @@ nav {
     text-align: center;
     padding: 2em 1em;
 }
+a {
+    text-decoration: none;
+    color: inherit;
+}
 
+/* Header */
+
+.header-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 10px 20px;
+}
+
+.logo {
+    font-size: 24px;
+    font-weight: bold;
+}
+
+.logo span {
+    color: #1abc9c;
+}
+
+nav {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+nav a {
+    color: #fff;
+    font-size: 16px;
+    padding: 5px 10px;
+    transition: background 0.3s ease, color 0.3s ease;
+}
+
+nav a:hover {
+    background: #1abc9c;
+    border-radius: 5px;
+}
+
+.header-btn {
+    background: #1abc9c;
+    color: #fff;
+    padding: 8px 15px;
+    border-radius: 5px;
+    font-size: 14px;
+}
+
+.header-btn:hover {
+    background: #16a085;
+}
+
+/* Footer */
+footer {
+    background: linear-gradient(135deg, #1abc9c, #16a085);
+    color: #fff;
+    padding: 30px 10px;
+    position: relative;
+    overflow: hidden;
+}
+
+.footer-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 30px;
+    z-index: 1;
+}
+
+/* Background Wave Effect */
+footer::before {
+    content: "";
+    position: absolute;
+    top: -100px;
+    left: 0;
+    right: 0;
+    background: rgba(255, 255, 255, 0.1);
+    height: 200px;
+    border-radius: 50%;
+    z-index: 0;
+}
+
+.footer-logo {
+    font-size: 28px;
+    font-weight: bold;
+    margin-bottom: 20px;
+}
+
+.footer-logo span {
+    color: #fff;
+    background: #1abc9c;
+    padding: 3px 8px;
+    border-radius: 4px;
+}
+
+.footer-links h4 {
+    font-size: 18px;
+    margin-bottom: 10px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.footer-links ul {
+    list-style: none;
+    padding: 0;
+}
+
+.footer-links ul li {
+    margin: 8px 0;
+}
+
+.footer-links ul li a {
+    color: #eee;
+    font-size: 14px;
+    transition: color 0.3s ease;
+}
+
+.footer-links ul li a:hover {
+    color: #000;
+    text-shadow: 1px 1px 3px rgba(255, 255, 255, 0.8);
+}
+
+.footer-social {
+    display: flex;
+    gap: 15px;
+    margin-top: 10px;
+}
+
+.footer-social a {
+    color: #000000;
+    font-size: 22px;
+    background: rgba(255, 255, 255, 0.2);
+    padding: 10px;
+    border-radius: 50%;
+    transition: transform 0.3s ease, background 0.3s ease;
+}
+
+.footer-social a:hover {
+    transform: scale(1.1);
+    background: #fff;
+    color: #1abc9c;
+}
+
+.footer-bottom {
+    text-align: center;
+    margin-top: 40px;
+    font-size: 14px;
+    color: #ddd;
+}
+
+.footer-bottom a {
+    color: #fff;
+    text-decoration: underline;
+    transition: color 0.3s ease;
+}
+
+.footer-bottom a:hover {
+    color: #000;
+    text-shadow: 1px 1px 3px rgba(255, 255, 255, 0.8);
+}
 .slideshow-container {
     position: relative;
     max-width: 100%;
@@ -185,7 +516,7 @@ nav {
 }
 
 .form-group button {
-    background: #f4a261;
+    background: #000000;
     color: white;
     border: none;
     padding: 0.5em 1em;
@@ -200,7 +531,7 @@ nav {
     top: 10px;
     right: 10px;
     background: #f4a261;
-    color: white;
+    color: rgb(3, 3, 3);
     border: none;
     border-radius: 50%;
     width: 30px;
@@ -213,22 +544,8 @@ nav {
     justify-content: center;
 }
 
-footer {
-    background: #333;
-    color: white;
-    text-align: center;
-    padding: 1em 0;
-}
 
-footer ul {
-    list-style: none;
-    padding: 0;
-}
 
-footer ul li {
-    display: inline;
-    margin: 0 10px;
-}
 
 /* Map Container */
 /* Map Container */
@@ -252,7 +569,3 @@ footer ul li {
 }
 
 
-footer ul li a {
-    color: white;
-    text-decoration: none;
-}
