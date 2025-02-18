@@ -1,2 +1,3 @@
 # project
-This is my trial website
+Currently Working On : Visitor Tracking (Behaviour Analysis,Reccommendation System)
+The Visitor Tracking System is a web-based solution for real-time visitor tracking at amusement parks using GPS. The system features live maps for tracking visitor locations, ride traffic monitoring, and an admin dashboard for viewing visitor data insights. Built with HTML, CSS, JavaScript, PHP, and MySQL, it integrates Leaflet for map visualization and Google Maps API for location tracking. To set up, clone the repository, configure the backend (PHP, MySQL), set up Google Maps API, and run the project on a local server
